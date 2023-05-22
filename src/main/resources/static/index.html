@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>User Management</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="app.js"></script>
+</head>
+<body>
+	<h1>User Management</h1>
+	<form id="userForm">
+		<label for="firstName">First Name:</label>
+		<input type="text" id="firstName" name="firstName" required><br><br>
+		<label for="lastName">Last Name:</label>
+		<input type="text" id="lastName" name="lastName" required><br><br>
+		<label for="email">Email:</label>
+		<input type="email" id="email" name="email" required><br><br>
+		<input type="submit" id="submitUser" value="Create User">
+		<input type="hidden" id="userId">
+	</form>
+	
+	
+	<form id="userForm">
+		<label for="userdet">User Id</label>
+		<input type="text" id="userdet" name="userdet" required><br><br>
+		
+		<input type="submit" id="userdetails" value="User Details" onclick="getUserById()">
+		
+	</form>
+	<br>
+	<table id="userTable">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	
+	
+	
+	
+	
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		loadAllUsers();
+
+		$("#submitUser").on("click", function(event) {
+			event.preventDefault();
+			var id = $("#userId").val();
+			var firstName = $("#firstName").val();
+			var lastName = $("#lastName").val();
+			var email = $("#email").val();
+
+			alert(id);
+			if (id) {
+				updateUser(id, firstName, lastName, email);
+			} else {
+				createUser(firstName, lastName, email);
+			}
+
+			$("#userForm")[0].reset();
+			$("#submitUser").val("Create User");
+			$("#userId").val("");
+		});
+
+		$(document).on("click", ".editUser", function() {
+			var id = $(this).closest("tr").attr("id");
+			getUserById(id);
+			$("#submitUser").val("Update User");
+			$("#userId").val(id);
+			
+		});
+
+		$(document).on("click", ".deleteUser", function() {
+			var id = $(this).closest("tr").attr("id");
+			deleteUser(id);
+		});
+	});
+
+	function loadAllUsers() {
+		$.ajax({
+			url: "/api/users",
+			type: "GET",
+			dataType: "json",
+			success: function(users) {
+				$.each(users, function(i, user) {
+					var tr = "<tr id='" + user.id + "'><td>" + user.id + "</td><td>" + user.firstName + "</td><td>" + user.lastName + "</td><td>" + user.email + "</td><td><button class='editUser'>Edit</button></td><td><button class='deleteUser'>Delete</button></td></tr>";
+					$("#userTable tbody").append(tr);
+				});
+			},
+			error: function(xhr, status, error) {
+				console.log(xhr.responseText);
+			}
+		});
+	}
+
+	function createUser(firstName, lastName, email) {
+		// Send a POST request to the "/api/users" endpoint
+		$.ajax({
+			url: "/api/users",
+			type: "POST",
+			contentType: "application/json",
+			// Convert the data to JSON format and send it in the request body
+			data: JSON.stringify({
+				firstName: firstName,
+				lastName: lastName,
+				email: email
+			}),
+			// Handle the server's response
+			success: function(user) {
+				// Construct a new table row using the data returned by the server
+				var tr = "<tr id='" + user.id + "'>" +
+						 "<td>" + user.id + "</td>" +
+						 "<td>" + user.firstName + "</td>" +
+						 "<td>" + user.lastName + "</td>" +
+						 "<td>" + user.email + "</td>" +
+						 
+						 "<td><button class='editUser' onclick='editUser(" + user.id + ")'>Edit</button></td>" +
+						 
+						 "<td><button class='deleteUser' onclick='deleteUser(" + user.id + ")'>Delete</button></td>" +
+						 "</tr>";
+				// Add the new row to the table
+				$("#userTable tbody").append(tr);
+				// Clear the form inputs
+				$("#firstName").val("");
+				$("#lastName").val("");
+				$("#email").val("");
+			},
+			error: function(xhr, status, error) {
+				// Log any errors to the console
+				console.log(xhr.responseText);
+			}
+		});
+	}
+
+	// Get user by ID
+	function getUserById(id) {
+		
+		
+	  $.ajax({
+	    url: '/api/users/' + id,
+	    type: 'GET',
+	    dataType: 'json',
+	    success: function(user) {
+	      // Do something with the user data
+	    },
+	    error: function(xhr, status, error) {
+	      console.log(xhr.responseText);
+	    }
+	  });
+	}
+
+	// Update user
+	function updateUser(id, firstName, lastName, email) {
+  $.ajax({
+    url: "/api/users/" + id,
+    type: "PUT",
+    contentType: "application/json",
+    data: JSON.stringify({
+      firstName: firstName,
+      lastName: lastName,
+      email: email
+    }),
+    success: function(result) {
+      // handle success
+    },
+    error: function(xhr, status, error) {
+      // handle error
+    }
+  });
+}
+
+
+	// Delete user
+	function deleteUser(id) {
+		alert(id);
+	  $.ajax({
+	    url: '/api/users/' + id,
+	    type: 'DELETE',
+	    success: function() {
+	      // Do something after successful delete
+	    },
+	    error: function(xhr, status, error) {
+	      console.log(xhr.responseText);
+	    }
+	  });
+	}
+
+	
+	</script>
+	
+	
+</body>
+</html>
