@@ -5,9 +5,9 @@ The application allows you to perform CRUD operations on a specific entity.
 # Prerequisites
 Before you begin, ensure you have the following:
 
-Java Development Kit (JDK) installed on your machine
-MySQL installed and running
-Clever Cloud account
+1. Java Development Kit (JDK) installed on your machine
+2. MySQL installed and running
+3. Clever Cloud account
 
 # Tools and Technologies
  1. Tool: Spring Tool Suite.
