@@ -46,18 +46,18 @@ Configure your MySQL database on Clever Cloud and obtain the connection details.
 Update your application configuration to use the Clever Cloud database credentials.
 
 # Credentials
-host: bze8v4m229isx42fw69l-mysql.services.clever-cloud.com
-Database Name: bze8v4m229isx42fw69l
-User: uclpc8pna26x0nwy
-Password: kbjw2Aomf22PZm0fyoPU
-Port: 3306
-Connection URI: mysql://uclpc8pna26x0nwy:kbjw2Aomf22PZm0fyoPU@bze8v4m229isx42fw69l-mysql.services.clever-cloud.com:3306/bze8v4m229isx42fw69l
+1. host: bze8v4m229isx42fw69l-mysql.services.clever-cloud.com
+2. Database Name: bze8v4m229isx42fw69l
+3. User: uclpc8pna26x0nwy
+4. Password: kbjw2Aomf22PZm0fyoPU
+5. Port: 3306
+6. Connection URI: mysql://uclpc8pna26x0nwy:kbjw2Aomf22PZm0fyoPU@bze8v4m229isx42fw69l-mysql.services.clever-cloud.com:3306/bze8v4m229isx42fw69l
 
 # Usage
 Once the application is deployed, you can interact with it using HTTP requests. Here are the common endpoints for CRUD operations:
 
-Create: POST /entity - Create a new entity by sending a JSON payload with the required data.
-Read: GET /entity/{id} - Retrieve an entity by its unique identifier.
-Update: PUT /entity/{id} - Update an existing entity by its identifier, sending a JSON payload with the updated data.
-Delete: DELETE /entity/{id} - Delete an entity by its identifier.
-Replace /entity with the appropriate path defined in your controller.
+1. Create: POST /entity - Create a new entity by sending a JSON payload with the required data.
+2. Read: GET /entity/{id} - Retrieve an entity by its unique identifier.
+3. Update: PUT /entity/{id} - Update an existing entity by its identifier, sending a JSON payload with the updated data.
+4. Delete: DELETE /entity/{id} - Delete an entity by its identifier.
+5. Replace /entity with the appropriate path defined in your controller.
