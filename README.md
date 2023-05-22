@@ -10,9 +10,9 @@ MySQL installed and running
 Clever Cloud account
 
 # Tools and Technologies
- Tool: Spring Tool Suite.
- Technologies: HTML, Java, Springboot, MYSQL(Clever Cloud).
- API Tool: Postman
+ 1.0Tool: Spring Tool Suite.
+ 2.0Technologies: HTML, Java, Springboot, MYSQL(Clever Cloud).
+ 3. API Tool: Postman
 
 # Setup
 Create a new Spring Boot project:
